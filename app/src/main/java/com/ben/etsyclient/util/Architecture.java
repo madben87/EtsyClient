@@ -1,8 +1,8 @@
 package com.ben.etsyclient.util;
 
 import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.item.Goods;
-import com.ben.etsyclient.model.item.GoodsList;
+import com.ben.etsyclient.model.goods.Goods;
+import com.ben.etsyclient.model.goods.GoodsList;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

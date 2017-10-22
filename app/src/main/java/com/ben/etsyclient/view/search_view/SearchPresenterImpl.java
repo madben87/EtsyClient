@@ -7,7 +7,7 @@ import android.util.Log;
 import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
 import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.item.GoodsList;
+import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 
 import javax.inject.Inject;
@@ -15,8 +15,6 @@ import javax.inject.Singleton;
 
 import rx.Observer;
 import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 @Singleton
 public class SearchPresenterImpl implements SearchPresenter {

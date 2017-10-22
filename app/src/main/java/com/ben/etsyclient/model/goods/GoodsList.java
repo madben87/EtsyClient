@@ -1,4 +1,4 @@
-package com.ben.etsyclient.model.item;
+package com.ben.etsyclient.model.goods;
 
 import android.os.Parcel;
 import android.os.Parcelable;

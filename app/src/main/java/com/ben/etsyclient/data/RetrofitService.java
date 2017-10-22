@@ -1,10 +1,9 @@
 package com.ben.etsyclient.data;
 
 import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.item.GoodsList;
+import com.ben.etsyclient.model.goods.GoodsList;
 
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -16,7 +15,7 @@ public interface RetrofitService {
     Observable<Categories> getCategories(@Query("api_key") String apiKey);
 
     @GET("v2/listings/active")
-    Observable<GoodsList> getItems(@Query("api_key") String apiKey, @Query("category") String category, @Query("keywords") String keywords);
+    Observable<GoodsList> getItems(@Query("api_key") String apiKey, @Query("category") String category, @Query("keywords") String keywords, @Query("includes") String includes);
 
     /*@GET("v2/listings/active?api_key={api_key}&category={category}&keywords={keywords}&includes=MainImage")
     Observable<GoodsList> getItems(@Path("api_key") String apiKey, @Path("category") String category, @Path("keywords") String keywords);*/

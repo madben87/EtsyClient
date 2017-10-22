@@ -1,4 +1,4 @@
-package com.ben.etsyclient.model.item;
+package com.ben.etsyclient.model.goods;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,9 +7,6 @@ import com.ben.etsyclient.util.Constants;
 import com.google.gson.annotations.SerializedName;
 
 public class Goods implements Constants, Parcelable {
-    // Вывести изображение, название, описание, цену.
-    // https://img0.etsystatic.com/208/0/8087274/il_570xN.1313146854_k74m.jpg
-    // https://openapi.etsy.com/v2/listings/active?api_key=l6pdqjuf7hdf97h1yvzadfce&category=paper_goods&keywords=terminator
 
     @SerializedName(LISTING_ID)
     private long listingId;
@@ -21,6 +18,7 @@ public class Goods implements Constants, Parcelable {
     private double price;
     @SerializedName(CURRENCY_CODE)
     private String currencyCode;
+    @SerializedName(MAIN_IMAGE)
     private MainImage mainImage;
 
     public Goods() {}
@@ -31,6 +29,7 @@ public class Goods implements Constants, Parcelable {
         description = in.readString();
         price = in.readDouble();
         currencyCode = in.readString();
+        mainImage = in.readParcelable(MainImage.class.getClassLoader());
     }
 
     public static final Creator<Goods> CREATOR = new Creator<Goods>() {
@@ -105,5 +104,6 @@ public class Goods implements Constants, Parcelable {
         dest.writeString(description);
         dest.writeDouble(price);
         dest.writeString(currencyCode);
+        dest.writeParcelable(mainImage, 0);
     }
 }

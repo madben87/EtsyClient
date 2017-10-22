@@ -5,8 +5,8 @@ import android.util.Log;
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.data.database.CategoryDaoImpl;
 import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.item.Goods;
-import com.ben.etsyclient.model.item.GoodsList;
+import com.ben.etsyclient.model.goods.Goods;
+import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 
 import javax.inject.Inject;
@@ -60,7 +60,7 @@ public class DataManager implements Repository, Constants {
 
     @Override
     public Observable<GoodsList> syncItems(String category, String keywords) {
-        return retrofitService.getItems(APP_KEY, category, keywords)
+        return retrofitService.getItems(APP_KEY, category, keywords, MAIN_IMAGE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -4,6 +4,7 @@ public interface Constants {
 
     String SEARCH_INPUT = "search_input";
     String APP_KEY = "kg64vu4dsbfzm5o6fgl27vf8";
+    String MAIN_IMAGE = "MainImage";
 
     //Category
     String CATEGORY_ID = "category_id";

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ben.etsyclient.R;
-import com.ben.etsyclient.model.item.GoodsList;
+import com.ben.etsyclient.model.goods.GoodsList;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -43,19 +43,11 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
     @Override
     public void onBindViewHolder(final ResultSearchHolder holder, int position) {
 
-        /*holder.textHeadLine.setText(String.valueOf(model.getResults().get(position).getTitle()));
-        holder.textCaption.setText(String.valueOf(model.getResults().get(position).getAnnouncement()));
-        holder.textTags.setText(String.valueOf(model.getResults().get(position).getTags()));
-
-        if (model.getResults() != null) {
-            Picasso.with(context).load(Uri.parse(model.getResults().get(position).getImgBig2x())).into(holder.image_news);
-        }*/
-
         holder.titleResItem.setText(goodsList.getResults().get(position).getTitle());
         holder.priceResItem.setText(String.valueOf(goodsList.getResults().get(position).getPrice()));
         holder.currencyCodeResItem.setText(goodsList.getResults().get(position).getCurrencyCode());
 
-        //imageLoader.displayImage(goodsList.getResults().get(position).getMainImage().getUrl_170x135(), holder.mainImageResItem);
+        imageLoader.displayImage(goodsList.getResults().get(position).getMainImage().getUrl_570xN(), holder.mainImageResItem);
 
         holder.setOnItemClickListener(new ItemClick() {
             @Override

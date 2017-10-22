@@ -4,7 +4,8 @@
     package="com.ben.etsyclient">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCOUNT_MANAGER"
+    <uses-permission
+        android:name="android.permission.ACCOUNT_MANAGER"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -22,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.search_result_view.ResultSearchActivity"></activity>
+        <activity android:name=".view.search_result_view.ResultSearchActivity" />
+        <activity android:name=".view.detail_view.DetailActivity"></activity>
     </application>
 
 </manifest>
