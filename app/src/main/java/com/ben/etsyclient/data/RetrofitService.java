@@ -1,16 +1,23 @@
 package com.ben.etsyclient.data;
 
 import com.ben.etsyclient.model.category.Categories;
+import com.ben.etsyclient.model.item.GoodsList;
 
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
-
-import static com.ben.etsyclient.util.Constants.APP_KEY;
 
 public interface RetrofitService {
 
-    String categoryPath = "v2/taxonomy/categories?api_key=" + APP_KEY;
+    //https://openapi.etsy.com/v2/listings/active?api_key=kg64vu4dsbfzm5o6fgl27vf8&category=paper_goods&keywords=terminator&includes=MainImage
 
-    @GET(categoryPath)
-    Observable<Categories> getCategories();
+    @GET("v2/taxonomy/categories")
+    Observable<Categories> getCategories(@Query("api_key") String apiKey);
+
+    @GET("v2/listings/active")
+    Observable<GoodsList> getItems(@Query("api_key") String apiKey, @Query("category") String category, @Query("keywords") String keywords);
+
+    /*@GET("v2/listings/active?api_key={api_key}&category={category}&keywords={keywords}&includes=MainImage")
+    Observable<GoodsList> getItems(@Path("api_key") String apiKey, @Path("category") String category, @Path("keywords") String keywords);*/
 }

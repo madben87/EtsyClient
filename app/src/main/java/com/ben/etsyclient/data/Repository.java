@@ -1,9 +1,23 @@
 package com.ben.etsyclient.data;
 
+import com.ben.etsyclient.model.category.Categories;
+import com.ben.etsyclient.model.item.Goods;
+import com.ben.etsyclient.model.item.GoodsList;
+
 import rx.Observable;
 
-public interface Repository<T> {
+public interface Repository {
 
-    Observable<T> syncCategories();
-    Observable<T> getCategories();
+    //Загружает список категорий с сервера вызывая метод RetrofitService.getCategories
+    Observable<Categories> syncCategories();
+    //Загружает список категорий из БД
+    Observable<Categories> getCategories();
+    //Загружает список товаров с сервера вызывая метод RetrofitService.getItems
+    Observable<GoodsList> syncItems(String category, String keywords);
+    //Загружает список товаров из БД
+    Observable<GoodsList> getItems();
+    //Сохраняет товар в БД
+    void saveItem(Goods goods);
+    //Удаляет товар из БД
+    void deleteItem(Goods goods);
 }

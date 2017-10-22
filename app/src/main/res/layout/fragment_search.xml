@@ -108,6 +108,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
+                    android:text="terminator"
                     android:textAlignment="textStart"
                     android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="parent"

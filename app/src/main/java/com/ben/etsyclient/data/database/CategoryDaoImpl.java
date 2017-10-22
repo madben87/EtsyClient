@@ -3,7 +3,6 @@ package com.ben.etsyclient.data.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ArrayAdapter;
 
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.data.DBHelper;
@@ -11,8 +10,6 @@ import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.category.Category;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import javax.inject.Inject;
 

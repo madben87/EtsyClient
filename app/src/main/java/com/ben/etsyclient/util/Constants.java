@@ -18,5 +18,16 @@ public interface Constants {
     String LONG_NAME = "long_name";
     String NUM_CHILDREN = "num_children";
 
+    //Goods
+    String LISTING_ID = "listing_id";
+    String TITLE = "title";
+    String DESCRIPTION = "description";
+    String PRICE = "price";
+    String CURRENCY_CODE = "currency_code";
 
+    //MainImage
+    String LISTING_IMAGE_ID = "listing_image_id";
+    String URL_75X75 = "url_75x75";
+    String URL_170X135 = "url_170x135";
+    String URL_570XN = "url_570xN";
 }

@@ -50,6 +50,8 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
 
     private Unbinder unbinder;
 
+    private ArrayList<String> categoryList;
+
     @Inject
     SearchPresenterImpl searchPresenter;
 
@@ -85,21 +87,21 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
 
     @OnClick(R.id.submit_btn)
     void click(View view) {
-
+        searchPresenter.searchItems(categoryList.get(spinnerCategories.getSelectedItemPosition()), textView.getText().toString());
     }
 
     @Override
     public void showCategories(Categories categories) {
 
-        final ArrayList<String> list = new ArrayList<>();
+        categoryList = new ArrayList<>();
 
         for (Category elem : categories.getResults()) {
-            list.add(elem.getLongName());
+            categoryList.add(elem.getLongName());
         }
 
-        Collections.sort(list);
+        Collections.sort(categoryList);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.custom_spinner_item, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.custom_spinner_item, categoryList);
         adapter.setDropDownViewResource(R.layout.custom_spinner_item);
 
         spinnerCategories.setAdapter(adapter);

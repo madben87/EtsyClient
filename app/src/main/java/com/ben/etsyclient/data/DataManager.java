@@ -5,7 +5,9 @@ import android.util.Log;
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.data.database.CategoryDaoImpl;
 import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.category.Category;
+import com.ben.etsyclient.model.item.Goods;
+import com.ben.etsyclient.model.item.GoodsList;
+import com.ben.etsyclient.util.Constants;
 
 import javax.inject.Inject;
 
@@ -15,7 +17,7 @@ import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class DataManager implements Repository<Categories> {
+public class DataManager implements Repository, Constants {
 
     private final RetrofitService retrofitService;
 
@@ -30,15 +32,12 @@ public class DataManager implements Repository<Categories> {
 
     @Override
     public Observable<Categories> syncCategories() {
-        return retrofitService.getCategories()
+        return retrofitService.getCategories(APP_KEY)
                 .subscribeOn(Schedulers.io())
                 .map(new Func1<Categories, Categories>() {
                     @Override
                     public Categories call(Categories categories) {
                         //Cached data
-                        /*for (Category elem : categories.getResults()) {
-                            categoryDao.addCategory(elem);
-                        }*/
                         categoryDao.cachedCategory(categories);
                         return categories;
                     }
@@ -57,5 +56,27 @@ public class DataManager implements Repository<Categories> {
                         .observeOn(AndroidSchedulers.mainThread());
             }
         });
+    }
+
+    @Override
+    public Observable<GoodsList> syncItems(String category, String keywords) {
+        return retrofitService.getItems(APP_KEY, category, keywords)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<GoodsList> getItems() {
+        return null;
+    }
+
+    @Override
+    public void saveItem(Goods goods) {
+
+    }
+
+    @Override
+    public void deleteItem(Goods goods) {
+
     }
 }

@@ -1,9 +1,14 @@
 package com.ben.etsyclient.view.search_view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.ben.etsyclient.data.DataManager;
+import com.ben.etsyclient.data.Repository;
 import com.ben.etsyclient.model.category.Categories;
+import com.ben.etsyclient.model.item.GoodsList;
+import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,15 +19,17 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 @Singleton
-public class SearchPresenterImpl implements SearchPresenter<SearchView> {
+public class SearchPresenterImpl implements SearchPresenter {
 
     private SearchView view;
-    public DataManager dataManager;
+    public Repository dataManager;
     private Subscription subscription;
+    private Context context;
 
     @Inject
-    public SearchPresenterImpl(DataManager dataManager) {
+    public SearchPresenterImpl(DataManager dataManager, Context context) {
         this.dataManager = dataManager;
+        this.context = context;
     }
 
     @Override
@@ -72,5 +79,29 @@ public class SearchPresenterImpl implements SearchPresenter<SearchView> {
                             view.showCategories(categories);
                         }
                     });
+    }
+
+    @Override
+    public void searchItems(String category, String keywords) {
+
+        subscription = dataManager.syncItems(category, keywords)
+                .subscribe(new Observer<GoodsList>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(GoodsList goodsList) {
+                        Intent intent = new Intent(context, ResultSearchActivity.class);
+                        intent.putExtra("GoodsList", goodsList);
+                        context.startActivity(intent);
+                    }
+                });
     }
 }

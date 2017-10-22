@@ -1,8 +1,10 @@
 package com.ben.etsyclient.view.search_view;
 
-public interface SearchPresenter<V extends SearchView> {
+import com.ben.etsyclient.Presenter;
+import com.ben.etsyclient.model.item.GoodsList;
 
-    void attachView(V mvpView);
-    void detachView();
+public interface SearchPresenter extends Presenter<SearchView> {
+
     void syncCategories();
+    void searchItems(String category, String keywords);
 }
