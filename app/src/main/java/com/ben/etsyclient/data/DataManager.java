@@ -8,6 +8,7 @@ import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
+import com.ben.etsyclient.util.MadLog;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,7 @@ public class DataManager implements Repository, Constants {
 
     @Override
     public Observable<Categories> syncCategories() {
+        MadLog.log(this, "syncCategories");
         return retrofitService.getCategories(APP_KEY)
                 .subscribeOn(Schedulers.io())
                 .map(new Func1<Categories, Categories>() {
@@ -47,7 +49,7 @@ public class DataManager implements Repository, Constants {
 
     @Override
     public Observable<Categories> getCategories() {
-        Log.d("DataManager", ">>>>>>>>>>>>>>>>>>>>>>>>>>>getCategories");
+        MadLog.log(this, "getCategories");
         return Observable.defer(new Func0<Observable<Categories>>() {
             @Override
             public Observable<Categories> call() {
@@ -60,6 +62,7 @@ public class DataManager implements Repository, Constants {
 
     @Override
     public Observable<GoodsList> syncItems(String category, String keywords) {
+        MadLog.log(this, "syncItems");
         return retrofitService.getItems(APP_KEY, category, keywords, MAIN_IMAGE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -67,16 +70,17 @@ public class DataManager implements Repository, Constants {
 
     @Override
     public Observable<GoodsList> getItems() {
+        MadLog.log(this, "getItems");
         return null;
     }
 
     @Override
     public void saveItem(Goods goods) {
-
+        MadLog.log(this, "saveItem");
     }
 
     @Override
     public void deleteItem(Goods goods) {
-
+        MadLog.log(this, "deleteItem");
     }
 }

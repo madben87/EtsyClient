@@ -6,6 +6,7 @@ import com.ben.etsyclient.data.database.CategoryDaoImpl;
 import com.ben.etsyclient.modules.ContextModule;
 import com.ben.etsyclient.modules.RetrofitModule;
 import com.ben.etsyclient.util.JazzBallFont;
+import com.ben.etsyclient.view.detail_view.DetailActivity;
 import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 import com.ben.etsyclient.view.search_view.SearchFragment;
 
@@ -23,4 +24,5 @@ public interface Injector {
     void inject(DataManager dataManager);
     void inject(CategoryDaoImpl categoryDao);
     void inject(ResultSearchActivity resultSearchActivity);
+    void inject(DetailActivity detailActivity);
 }

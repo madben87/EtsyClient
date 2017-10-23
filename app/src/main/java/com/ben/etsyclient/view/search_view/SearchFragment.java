@@ -22,6 +22,7 @@ import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.category.Category;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.JazzBallFont;
+import com.ben.etsyclient.util.MadLog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,6 +59,8 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MadLog.log(this, "onCreate");
     }
 
     @Override
@@ -82,12 +85,15 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
 
         searchPresenter.syncCategories();
 
+        MadLog.log(this, "onCreateView");
+
         return view;
     }
 
     @OnClick(R.id.submit_btn)
     void click(View view) {
         searchPresenter.searchItems(categoryList.get(spinnerCategories.getSelectedItemPosition()), textView.getText().toString());
+        MadLog.log(this, "click");
     }
 
     @Override
@@ -105,6 +111,8 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
         adapter.setDropDownViewResource(R.layout.custom_spinner_item);
 
         spinnerCategories.setAdapter(adapter);
+
+        MadLog.log(this, "showCategories");
     }
 
     @Override
@@ -114,6 +122,8 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
         if (textView.getText() != null) {
             outState.putString(SEARCH_INPUT, textView.getText().toString());
         }
+
+        MadLog.log(this, "onSaveInstanceState");
     }
 
     @Override
@@ -121,5 +131,7 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
         super.onDestroyView();
 
         unbinder.unbind();
+
+        MadLog.log(this, "onDestroyView");
     }
 }

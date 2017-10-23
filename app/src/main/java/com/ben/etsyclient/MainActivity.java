@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.ben.etsyclient.adapter.PagerAdapter;
 import com.ben.etsyclient.custom_view.JazzBallTextView;
+import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.saved_view.SavedFragment;
 import com.ben.etsyclient.view.search_view.SearchFragment;
 
@@ -49,5 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
             actionBar.setCustomView(title);
         }
+
+        MadLog.log(this, "onCreate");
     }
 }

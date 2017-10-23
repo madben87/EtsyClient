@@ -8,6 +8,7 @@ import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.data.DBHelper;
 import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.category.Category;
+import com.ben.etsyclient.util.MadLog;
 
 import java.util.ArrayList;
 
@@ -69,6 +70,8 @@ public class CategoryDaoImpl implements CategoryDAO {
 
             addCategory(elem);
         }
+
+        MadLog.log(this, "cachedCategory");
     }
 
     @Override
@@ -95,6 +98,8 @@ public class CategoryDaoImpl implements CategoryDAO {
         Categories categories = new Categories();
         categories.setCount(list.size());
         categories.setResults(list);
+
+        MadLog.log(this, "getCategories");
 
         return categories;
     }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.R;
 import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.adapter.ResultSearchAdapter;
 
 import javax.inject.Inject;
@@ -40,10 +41,12 @@ public class ResultSearchActivity extends AppCompatActivity implements ResultSea
         resSearchList.setHasFixedSize(true);
         resSearchList.setLayoutManager(new GridLayoutManager(this, 2));
         resSearchList.setAdapter(resultSearchAdapter);
+
+        MadLog.log(this, "onCreate");
     }
 
     @Override
     public void showResult(GoodsList goodsList) {
-
+        MadLog.log(this, "showResult");
     }
 }

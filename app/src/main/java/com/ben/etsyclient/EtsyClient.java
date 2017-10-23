@@ -3,6 +3,7 @@ package com.ben.etsyclient;
 import android.app.Application;
 
 import com.ben.etsyclient.modules.ContextModule;
+import com.ben.etsyclient.util.MadLog;
 
 public class EtsyClient extends Application {
 
@@ -19,6 +20,8 @@ public class EtsyClient extends Application {
         super.onCreate();
 
         etsyClientInstance = this;
+
+        MadLog.setDebugMode(true);
 
         injector = DaggerInjector
                 .builder()

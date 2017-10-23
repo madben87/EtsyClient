@@ -1,6 +1,7 @@
 package com.ben.etsyclient.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.ben.etsyclient.R;
 import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.util.Constants;
+import com.ben.etsyclient.view.detail_view.DetailActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -15,7 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder> {
+public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder> implements Constants {
 
     private GoodsList goodsList;
     @Inject
@@ -53,11 +56,13 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
             @Override
             public void onItemClick(View view, int position) {
 
-                /*switch (view.getId()) {
-                    case R.id.card_recview:
-                        CustomTab.tabShow(newsActivity, Uri.parse(model.getResults().get(position).getUrl()));
+                switch (view.getId()) {
+                    case R.id.card_view_res_item:
+                        Intent intent = new Intent(context, DetailActivity.class);
+                        intent.putExtra(GOODS_KEY, goodsList.getResults().get(position));
+                        context.startActivity(intent);
                         break;
-                    case R.id.btn_open_detail:
+                    /*case R.id.btn_open_detail:
                         holder.textCaption.setVisibility(View.VISIBLE);
                         holder.btnOpenDetail.setVisibility(View.GONE);
                         holder.btnCloseDetail.setVisibility(View.VISIBLE);
@@ -66,8 +71,8 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
                         holder.textCaption.setVisibility(View.GONE);
                         holder.btnOpenDetail.setVisibility(View.VISIBLE);
                         holder.btnCloseDetail.setVisibility(View.GONE);
-                        break;
-                }*/
+                        break;*/
+                }
             }
         });
     }

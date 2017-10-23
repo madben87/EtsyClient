@@ -8,6 +8,7 @@ import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
 import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 
 import javax.inject.Inject;
@@ -15,13 +16,14 @@ import javax.inject.Singleton;
 
 import rx.Observer;
 import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 @Singleton
 public class SearchPresenterImpl implements SearchPresenter {
 
     private SearchView view;
     public Repository dataManager;
-    private Subscription subscription;
+    private CompositeSubscription compositeSubscription;
     private Context context;
 
     @Inject
@@ -31,19 +33,9 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     @Override
-    public void attachView(SearchView mvpView) {
-        view = mvpView;
-    }
-
-    @Override
-    public void detachView() {
-        view = null;
-    }
-
-    @Override
     public void syncCategories() {
 
-            subscription = dataManager.syncCategories()
+        Subscription subscription = dataManager.syncCategories()
                     .subscribe(new Observer<Categories>() {
                         @Override
                         public void onCompleted() {
@@ -53,7 +45,7 @@ public class SearchPresenterImpl implements SearchPresenter {
                         @Override
                         public void onError(Throwable e) {
                             Log.d(">>>>>>>>>>>>>>>>>>>>>>>", e.getMessage());
-                            subscription = dataManager.getCategories()
+                            Subscription subscription = dataManager.getCategories()
                                     .subscribe(new Observer<Categories>() {
                                         @Override
                                         public void onCompleted() {
@@ -70,6 +62,7 @@ public class SearchPresenterImpl implements SearchPresenter {
                                             view.showCategories(categories);
                                         }
                                     });
+                            compositeSubscription.add(subscription);
                         }
 
                         @Override
@@ -77,12 +70,14 @@ public class SearchPresenterImpl implements SearchPresenter {
                             view.showCategories(categories);
                         }
                     });
+
+        compositeSubscription.add(subscription);
     }
 
     @Override
     public void searchItems(String category, String keywords) {
 
-        subscription = dataManager.syncItems(category, keywords)
+        Subscription subscription = dataManager.syncItems(category, keywords)
                 .subscribe(new Observer<GoodsList>() {
                     @Override
                     public void onCompleted() {
@@ -101,5 +96,30 @@ public class SearchPresenterImpl implements SearchPresenter {
                         context.startActivity(intent);
                     }
                 });
+        compositeSubscription.add(subscription);
+    }
+
+    @Override
+    public void attachView(SearchView mvpView) {
+        view = mvpView;
+        compositeSubscription = new CompositeSubscription();
+        MadLog.log(this, "attachView");
+    }
+
+    @Override
+    public void detachView() {
+        view = null;
+        unSubscribe();
+
+        MadLog.log(this, "detachView");
+    }
+
+    public void unSubscribe() {
+        if (compositeSubscription != null) {
+            if (!compositeSubscription.isUnsubscribed()) {
+                compositeSubscription.unsubscribe();
+                compositeSubscription = null;
+            }
+        }
     }
 }

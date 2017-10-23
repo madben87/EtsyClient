@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.ben.etsyclient.util.DBConstants;
+import com.ben.etsyclient.util.MadLog;
 
 import javax.inject.Inject;
 
@@ -30,18 +31,18 @@ public class DBHelper extends SQLiteOpenHelper implements DBConstants {
     @Inject
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        Log.d("DBHelper", ">>>>>>>>>>>>>>>>>>>>>>>>>>DBHelper open");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DB_CATEGORY_CREATE);
-        Log.d("DBHelper", ">>>>>>>>>>>>>>>>>>>>>>>>>>onCreate");
+        MadLog.log(this, "onCreate");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_CATEGORY);
         onCreate(db);
+        MadLog.log(this, "onUpgrade");
     }
 }

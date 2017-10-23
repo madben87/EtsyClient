@@ -36,6 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="Terminator Steampunk Masquerade Mask, Metallic Cat Fox Steampunk Mask, Steam Punk"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -45,7 +47,7 @@
             <ImageView
                 android:id="@+id/main_image_res_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:padding="8dp"
                 app:srcCompat="@drawable/ic_etsy" />
 
