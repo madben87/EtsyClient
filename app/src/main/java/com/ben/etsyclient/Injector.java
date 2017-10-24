@@ -8,6 +8,7 @@ import com.ben.etsyclient.modules.RetrofitModule;
 import com.ben.etsyclient.util.JazzBallFont;
 import com.ben.etsyclient.view.detail_view.DetailActivity;
 import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
+import com.ben.etsyclient.view.search_result_view.ResultSearchPresenterImpl;
 import com.ben.etsyclient.view.search_view.SearchFragment;
 
 import javax.inject.Singleton;
@@ -24,5 +25,6 @@ public interface Injector {
     void inject(DataManager dataManager);
     void inject(CategoryDaoImpl categoryDao);
     void inject(ResultSearchActivity resultSearchActivity);
+    void inject(ResultSearchPresenterImpl resultSearchPresenter);
     void inject(DetailActivity detailActivity);
 }

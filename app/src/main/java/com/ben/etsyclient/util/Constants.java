@@ -38,4 +38,9 @@ public interface Constants {
     String URL_170x135 = "url_170x135";
     String URL_570xN = "url_570xN";
     String URL_FULLxFULL = "url_fullxfull";
+
+    //QueryParam
+    String QUERY_PARAM = "QueryParam";
+    String CATEGORY = "Category";
+    String KEYWORD = "Keyword";
 }

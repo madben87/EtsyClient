@@ -8,6 +8,7 @@ import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
 import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 
@@ -19,7 +20,7 @@ import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 @Singleton
-public class SearchPresenterImpl implements SearchPresenter {
+public class SearchPresenterImpl implements SearchPresenter, Constants {
 
     private SearchView view;
     public Repository dataManager;
@@ -75,7 +76,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     @Override
-    public void searchItems(String category, String keywords) {
+    public void searchItems(final String category, final String keywords) {
 
         Subscription subscription = dataManager.syncItems(category, keywords)
                 .subscribe(new Observer<GoodsList>() {
@@ -86,13 +87,15 @@ public class SearchPresenterImpl implements SearchPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        MadLog.error(this, e.getMessage());
                     }
 
                     @Override
                     public void onNext(GoodsList goodsList) {
                         Intent intent = new Intent(context, ResultSearchActivity.class);
-                        intent.putExtra("GoodsList", goodsList);
+                        intent.putExtra(GOODS_LIST_KEY, goodsList);
+                        intent.putExtra(CATEGORY, category);
+                        intent.putExtra(KEYWORD, keywords);
                         context.startActivity(intent);
                     }
                 });
@@ -110,7 +113,6 @@ public class SearchPresenterImpl implements SearchPresenter {
     public void detachView() {
         view = null;
         unSubscribe();
-
         MadLog.log(this, "detachView");
     }
 

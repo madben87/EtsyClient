@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import com.ben.etsyclient.R;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
+import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.detail_view.DetailActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,8 +23,6 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
     private GoodsList goodsList;
     @Inject
     public Context context;
-
-    private ImageLoader imageLoader;
 
     public void setGoods(GoodsList goodsList) {
         this.goodsList = goodsList;
@@ -38,8 +36,6 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
     @Override
     public ResultSearchHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_search_item, parent, false);
-        imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
         return new ResultSearchHolder(view);
     }
 
@@ -50,7 +46,11 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
         holder.priceResItem.setText(String.valueOf(goodsList.getResults().get(position).getPrice()));
         holder.currencyCodeResItem.setText(goodsList.getResults().get(position).getCurrencyCode());
 
-        imageLoader.displayImage(goodsList.getResults().get(position).getMainImage().getUrl_570xN(), holder.mainImageResItem);
+        holder.mainImageResItem.setImageResource(0);
+
+        ImageLoader.getInstance().displayImage(goodsList.getResults().get(position).getMainImage().getUrl_570xN(), holder.mainImageResItem);
+
+        MadLog.log(this, String.valueOf(ImageLoader.getInstance().getMemoryCache()));
 
         holder.setOnItemClickListener(new ItemClick() {
             @Override
@@ -62,16 +62,6 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
                         intent.putExtra(GOODS_KEY, goodsList.getResults().get(position));
                         context.startActivity(intent);
                         break;
-                    /*case R.id.btn_open_detail:
-                        holder.textCaption.setVisibility(View.VISIBLE);
-                        holder.btnOpenDetail.setVisibility(View.GONE);
-                        holder.btnCloseDetail.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.btn_close_detail:
-                        holder.textCaption.setVisibility(View.GONE);
-                        holder.btnOpenDetail.setVisibility(View.VISIBLE);
-                        holder.btnCloseDetail.setVisibility(View.GONE);
-                        break;*/
                 }
             }
         });
