@@ -39,8 +39,16 @@ public interface Constants {
     String URL_570xN = "url_570xN";
     String URL_FULLxFULL = "url_fullxfull";
 
-    //QueryParam
-    String QUERY_PARAM = "QueryParam";
-    String CATEGORY = "Category";
-    String KEYWORD = "Keyword";
+    //Params
+    String PARAMS = "params";
+    String KEYWORD = "keywords";
+    String CATEGORY = "category";
+
+    //Pagination
+    String PAGINATION = "pagination";
+    String EFFECTIVE_LIMIT = "effective_limit";
+    String EFFECTIVE_OFFSET = "effective_offset";
+    String NEXT_OFFSET = "next_offset";
+    String EFFECTIVE_PAGE = "effective_page";
+    String NEXT_PAGE = "next_page";
 }

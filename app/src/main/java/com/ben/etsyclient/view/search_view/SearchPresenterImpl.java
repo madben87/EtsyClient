@@ -94,8 +94,8 @@ public class SearchPresenterImpl implements SearchPresenter, Constants {
                     public void onNext(GoodsList goodsList) {
                         Intent intent = new Intent(context, ResultSearchActivity.class);
                         intent.putExtra(GOODS_LIST_KEY, goodsList);
-                        intent.putExtra(CATEGORY, category);
-                        intent.putExtra(KEYWORD, keywords);
+                        //intent.putExtra(CATEGORY, category);
+                        //intent.putExtra(KEYWORD, keywords);
                         context.startActivity(intent);
                     }
                 });

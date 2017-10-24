@@ -10,6 +10,7 @@ import com.ben.etsyclient.util.MadLog;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -49,6 +50,10 @@ public class ResultSearchPresenterImpl implements ResultSearchPresenter, Constan
                     }
                 });
         compositeSubscription.add(subscription);
+    }
+
+    public Observable<GoodsList> loadNextPage(String category, String keywords, int limit, int offset) {
+        return dataManager.loadNextItems(category, keywords, limit, offset);
     }
 
     @Override

@@ -68,6 +68,13 @@ public class DataManager implements Repository, Constants {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<GoodsList> loadNextItems(String category, String keywords, int limit, int offset) {
+        MadLog.log(this, "loadNextItems");
+        return retrofitService.getNextItems(APP_KEY, category, keywords, MAIN_IMAGE, limit, offset)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     @Override
     public Observable<GoodsList> getItems() {
         MadLog.log(this, "getItems");

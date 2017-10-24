@@ -14,6 +14,8 @@ public interface Repository {
     Observable<Categories> getCategories();
     //Загружает список товаров с сервера вызывая метод RetrofitService.getItems
     Observable<GoodsList> syncItems(String category, String keywords);
+    //Pagination
+    Observable<GoodsList> loadNextItems(String category, String keywords, int limit, int offset);
     //Загружает список товаров из БД
     Observable<GoodsList> getItems();
     //Сохраняет товар в БД
