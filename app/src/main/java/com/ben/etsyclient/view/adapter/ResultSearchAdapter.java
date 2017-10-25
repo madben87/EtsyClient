@@ -6,13 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ben.etsyclient.R;
+import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.detail_view.DetailActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,16 +25,26 @@ import javax.inject.Singleton;
 public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder> implements Constants {
 
     private GoodsList goodsList;
+
     @Inject
     public Context context;
+
+    @Inject
+    public ResultSearchAdapter() {
+        this.goodsList = new GoodsList();
+    }
 
     public void setGoods(GoodsList goodsList) {
         this.goodsList = goodsList;
     }
 
-    @Inject
-    public ResultSearchAdapter() {
-        this.goodsList = new GoodsList();
+    public void addNewGoods(ArrayList<Goods> list) {
+        if (list.size() == 0) {
+            Toast.makeText(context, "No more goods", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        goodsList.getResults().addAll(list);
     }
 
     @Override

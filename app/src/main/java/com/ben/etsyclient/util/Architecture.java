@@ -4,6 +4,8 @@ import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
 
+import java.util.ArrayList;
+
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -85,4 +87,13 @@ interface RetrofitService {
     Observable<Categories> getCategories(@Query("api_key") String apiKey);
     @GET("v2/listings/active")
     Observable<GoodsList> getItems(@Query("api_key") String apiKey, @Query("category") String category, @Query("keywords") String keywords);
+}
+
+interface ScrollListener {
+    //Подписываемся на Observable излучающий события ScrollListener
+    void subscribeOnList();
+    //Отписываемся от Observable
+    void unSubscribe();
+    //
+    ArrayList<Goods> updateList();
 }

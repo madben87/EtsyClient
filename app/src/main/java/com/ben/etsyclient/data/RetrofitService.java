@@ -23,7 +23,4 @@ public interface RetrofitService {
     Observable<GoodsList> getNextItems(@Query("api_key") String apiKey, @Query("category") String category,
                                        @Query("keywords") String keywords, @Query("includes") String includes,
                                        @Query("limit") int limit, @Query("offset") int offset);
-
-    /*@GET("v2/listings/active?api_key={api_key}&category={category}&keywords={keywords}&includes=MainImage")
-    Observable<GoodsList> getItems(@Path("api_key") String apiKey, @Path("category") String category, @Path("keywords") String keywords);*/
 }

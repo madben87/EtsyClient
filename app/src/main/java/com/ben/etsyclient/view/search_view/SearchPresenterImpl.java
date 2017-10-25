@@ -2,7 +2,6 @@ package com.ben.etsyclient.view.search_view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
@@ -45,7 +44,7 @@ public class SearchPresenterImpl implements SearchPresenter, Constants {
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.d(">>>>>>>>>>>>>>>>>>>>>>>", e.getMessage());
+                            MadLog.log(this, e.getMessage());
                             Subscription subscription = dataManager.getCategories()
                                     .subscribe(new Observer<Categories>() {
                                         @Override
@@ -55,7 +54,7 @@ public class SearchPresenterImpl implements SearchPresenter, Constants {
 
                                         @Override
                                         public void onError(Throwable e) {
-                                            Log.d(">>>>>>>>>>>>>>>>>>>>>>>", e.getMessage());
+                                            MadLog.log(this, e.getMessage());
                                         }
 
                                         @Override
@@ -94,8 +93,6 @@ public class SearchPresenterImpl implements SearchPresenter, Constants {
                     public void onNext(GoodsList goodsList) {
                         Intent intent = new Intent(context, ResultSearchActivity.class);
                         intent.putExtra(GOODS_LIST_KEY, goodsList);
-                        //intent.putExtra(CATEGORY, category);
-                        //intent.putExtra(KEYWORD, keywords);
                         context.startActivity(intent);
                     }
                 });

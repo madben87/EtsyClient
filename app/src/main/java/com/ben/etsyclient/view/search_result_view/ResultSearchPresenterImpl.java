@@ -1,9 +1,14 @@
 package com.ben.etsyclient.view.search_result_view;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
 import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
 import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.model.goods.Pagination;
+import com.ben.etsyclient.model.goods.Params;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
 
@@ -18,9 +23,12 @@ import rx.subscriptions.CompositeSubscription;
 @Singleton
 public class ResultSearchPresenterImpl implements ResultSearchPresenter, Constants {
 
-    public Repository dataManager;
+    private Repository dataManager;
     private CompositeSubscription compositeSubscription;
     private ResultSearchView view;
+    private int firstVisibleItems, visibleItemCount, totalItemCount;
+    private boolean loading;
+    private GoodsList goodsList;
 
     @Inject
     public ResultSearchPresenterImpl(DataManager dataManager) {this.dataManager = dataManager;}
@@ -41,7 +49,7 @@ public class ResultSearchPresenterImpl implements ResultSearchPresenter, Constan
 
                     @Override
                     public void onError(Throwable e) {
-
+                        MadLog.log(this, e.getMessage());
                     }
 
                     @Override
@@ -52,8 +60,59 @@ public class ResultSearchPresenterImpl implements ResultSearchPresenter, Constan
         compositeSubscription.add(subscription);
     }
 
-    public Observable<GoodsList> loadNextPage(String category, String keywords, int limit, int offset) {
-        return dataManager.loadNextItems(category, keywords, limit, offset);
+    public Observable<GoodsList> loadNextPage(Params params, Pagination pagination) {
+        return dataManager.loadNextItems(params.getCategory(), params.getKeywords(),
+                pagination.getEffectiveLimit(), pagination.getNextOffset());
+    }
+
+    @Override
+    public void setPagination(RecyclerView recyclerView, final GoodsList list) {
+        final GridLayoutManager layoutManager;
+
+        layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+
+        goodsList = list;
+
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    if (dy > 0) {
+
+                        visibleItemCount = layoutManager.getChildCount();
+                        totalItemCount = layoutManager.getItemCount();
+                        firstVisibleItems = layoutManager.findFirstVisibleItemPosition();
+
+                        if (!loading && (visibleItemCount + firstVisibleItems) >= totalItemCount
+                                && goodsList.getPagination().getNextOffset() != 0) {
+
+                            loading = true;
+
+                            MadLog.log(this, "onScrolled position = " + firstVisibleItems);
+
+                            compositeSubscription.add(loadNextPage(goodsList.getParams(), goodsList.getPagination())
+                                    .subscribe(new Observer<GoodsList>() {
+                                        @Override
+                                        public void onCompleted() {
+                                            loading = false;
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            MadLog.log(this, e.getMessage());
+                                        }
+
+                                        @Override
+                                        public void onNext(GoodsList list) {
+                                            goodsList = list;
+                                            view.showNextPage(goodsList.getResults());
+                                        }
+                                    }));
+                        }
+                    }
+                }
+            });
     }
 
     @Override
@@ -70,7 +129,7 @@ public class ResultSearchPresenterImpl implements ResultSearchPresenter, Constan
         MadLog.log(this, "detachView");
     }
 
-    public void unSubscribe() {
+    private void unSubscribe() {
         if (compositeSubscription != null) {
             if (!compositeSubscription.isUnsubscribed()) {
                 compositeSubscription.unsubscribe();

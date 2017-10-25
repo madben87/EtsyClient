@@ -11,5 +11,6 @@ public interface ResultSearchView extends MVPView {
     //Этот метод отображает данные поиска во вью
     void showResult(GoodsList goodsList);
 
+    //Этот метод отображает отображает следущую страницу
     void showNextPage(ArrayList<Goods> list);
 }

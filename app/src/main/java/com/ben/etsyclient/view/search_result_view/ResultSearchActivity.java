@@ -12,7 +12,7 @@ import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
-import com.ben.etsyclient.view.adapter.pagination.ResultSearchAdapterPagination;
+import com.ben.etsyclient.view.adapter.ResultSearchAdapter;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscription;
 
 public class ResultSearchActivity extends AppCompatActivity implements ResultSearchView, SwipeRefreshLayout.OnRefreshListener, Constants {
 
@@ -30,14 +29,11 @@ public class ResultSearchActivity extends AppCompatActivity implements ResultSea
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Inject
-    ResultSearchAdapterPagination resultSearchAdapter;
+    ResultSearchAdapter resultSearchAdapter;
     @Inject
     ResultSearchPresenterImpl resultSearchPresenter;
 
     private GoodsList goodsList;
-    private Subscription subscription;
-    //private String category;
-    //private String keyword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +49,6 @@ public class ResultSearchActivity extends AppCompatActivity implements ResultSea
         if (getIntent() != null) {
 
             goodsList = getIntent().getParcelableExtra(GOODS_LIST_KEY);
-
-            //category = getIntent().getStringExtra(CATEGORY);
-            //keyword = getIntent().getStringExtra(KEYWORD);
         }
 
         if (goodsList != null) {
@@ -79,12 +72,7 @@ public class ResultSearchActivity extends AppCompatActivity implements ResultSea
             swipeRefreshLayout.setRefreshing(false);
         }
 
-        if (resultSearchAdapter.allIsLoaded()) {
-            return;
-        }
-
-        //resultSearchPresenter.loadNextPage(goodsList.getParams().getCategory(), goodsList.getParams().getKeywords(),
-        //goodsList.getPagination().getEffectiveLimit(), goodsList.getPagination().getEffectiveOffset())
+        resultSearchPresenter.setPagination(resSearchList, goodsList);
 
         MadLog.log(this, "showResult");
     }
@@ -92,6 +80,7 @@ public class ResultSearchActivity extends AppCompatActivity implements ResultSea
     @Override
     public void showNextPage(ArrayList<Goods> list) {
         resultSearchAdapter.addNewGoods(list);
+        resultSearchAdapter.notifyDataSetChanged();
     }
 
     @Override
