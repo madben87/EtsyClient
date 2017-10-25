@@ -56,7 +56,7 @@ interface DetailView {
 }
 
 interface DetailPresenter extends Presenter {
-    //При нажатии на кнопку "сохранить" вызывает метод Repository.saveItem для сохранения элемента в БД
+    //При нажатии на кнопку "сохранить" вызывает метод Repository.saveGoods для сохранения элемента в БД
     void saveItem(Goods goods);
 }
 

@@ -1,9 +1,9 @@
 package com.ben.etsyclient.data;
 
-import android.util.Log;
 
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.data.database.CategoryDaoImpl;
+import com.ben.etsyclient.data.database.GoodsDaoImpl;
 import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
@@ -24,6 +24,8 @@ public class DataManager implements Repository, Constants {
 
     @Inject
     public CategoryDaoImpl categoryDao;
+    @Inject
+    public GoodsDaoImpl goodsDao;
 
     @Inject
     public DataManager(RetrofitService retrofitService) {
@@ -78,12 +80,18 @@ public class DataManager implements Repository, Constants {
     @Override
     public Observable<GoodsList> getItems() {
         MadLog.log(this, "getItems");
-        return null;
+        return Observable.defer(new Func0<Observable<GoodsList>>() {
+            @Override
+            public Observable<GoodsList> call() {
+                return Observable.just(goodsDao.getGoodsList());
+            }
+        });
     }
 
     @Override
-    public void saveItem(Goods goods) {
-        MadLog.log(this, "saveItem");
+    public long saveItem(Goods goods) {
+        MadLog.log(this, "saveGoods");
+        return goodsDao.saveGoods(goods);
     }
 
     @Override

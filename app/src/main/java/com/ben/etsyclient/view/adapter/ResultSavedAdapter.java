@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder> implements Constants {
+public class ResultSavedAdapter extends RecyclerView.Adapter<ResultSavedHolder> implements Constants {
 
     private GoodsList goodsList;
 
@@ -30,7 +30,7 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
     public Context context;
 
     @Inject
-    public ResultSearchAdapter() {
+    public ResultSavedAdapter() {
         this.goodsList = new GoodsList();
     }
 
@@ -38,23 +38,14 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
         this.goodsList = goodsList;
     }
 
-    public void addNewGoods(ArrayList<Goods> list) {
-        if (list.size() == 0) {
-            Toast.makeText(context, "No more goods", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        goodsList.getResults().addAll(list);
-    }
-
     @Override
-    public ResultSearchHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ResultSavedHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_search_item, parent, false);
-        return new ResultSearchHolder(view);
+        return new ResultSavedHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ResultSearchHolder holder, int position) {
+    public void onBindViewHolder(final ResultSavedHolder holder, int position) {
 
         holder.titleResItem.setText(goodsList.getResults().get(position).getTitle());
         holder.priceResItem.setText(String.valueOf(goodsList.getResults().get(position).getPrice()));
@@ -72,9 +63,10 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
 
                 switch (view.getId()) {
                     case R.id.card_view_res_item:
-                        Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                        Intent intent = new Intent(context, DetailActivity.class);
                         intent.putExtra(GOODS_KEY, goodsList.getResults().get(position));
-                        view.getContext().startActivity(intent);
+                        intent.putExtra(SAVED_FLAG, SAVED_FLAG);
+                        context.startActivity(intent);
                         break;
                 }
             }

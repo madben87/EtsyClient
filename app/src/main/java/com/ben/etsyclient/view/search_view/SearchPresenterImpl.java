@@ -22,7 +22,7 @@ import rx.subscriptions.CompositeSubscription;
 public class SearchPresenterImpl implements SearchPresenter, Constants {
 
     private SearchView view;
-    public Repository dataManager;
+    private Repository dataManager;
     private CompositeSubscription compositeSubscription;
     private Context context;
 
@@ -91,9 +91,10 @@ public class SearchPresenterImpl implements SearchPresenter, Constants {
 
                     @Override
                     public void onNext(GoodsList goodsList) {
-                        Intent intent = new Intent(context, ResultSearchActivity.class);
+                        /*Intent intent = new Intent(context, ResultSearchActivity.class);
                         intent.putExtra(GOODS_LIST_KEY, goodsList);
-                        context.startActivity(intent);
+                        context.startActivity(intent);*/
+                        view.showResult(goodsList);
                     }
                 });
         compositeSubscription.add(subscription);

@@ -2,12 +2,14 @@ package com.ben.etsyclient.data.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.data.DBHelper;
 import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.category.Category;
+import com.ben.etsyclient.util.DBConstants;
 import com.ben.etsyclient.util.MadLog;
 
 import java.util.ArrayList;
@@ -64,11 +66,12 @@ public class CategoryDaoImpl implements CategoryDAO {
 
         open();
 
-        dbHelper.onUpgrade(sqLiteDatabase, 1, 2);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_CATEGORY);
+        sqLiteDatabase.execSQL(DB_CATEGORY_CREATE);
 
         for (Category elem : categories.getResults()) {
-
             addCategory(elem);
+            MadLog.log(this, "addCategory");
         }
 
         MadLog.log(this, "cachedCategory");
@@ -81,9 +84,7 @@ public class CategoryDaoImpl implements CategoryDAO {
 
         ArrayList<Category> list = new ArrayList<>();
 
-        Cursor cursor;
-
-        cursor = sqLiteDatabase.query(TABLE_CATEGORY, null, null, null, null, null, null);
+        Cursor cursor = sqLiteDatabase.query(TABLE_CATEGORY, null, null, null, null, null, null);
 
         cursor.moveToFirst();
 

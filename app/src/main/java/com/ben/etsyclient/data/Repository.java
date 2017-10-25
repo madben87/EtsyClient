@@ -19,7 +19,7 @@ public interface Repository {
     //Загружает список товаров из БД
     Observable<GoodsList> getItems();
     //Сохраняет товар в БД
-    void saveItem(Goods goods);
+    long saveItem(Goods goods);
     //Удаляет товар из БД
     void deleteItem(Goods goods);
 }

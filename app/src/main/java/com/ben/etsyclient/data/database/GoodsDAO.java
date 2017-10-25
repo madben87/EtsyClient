@@ -5,9 +5,7 @@ import com.ben.etsyclient.model.goods.GoodsList;
 
 public interface GoodsDAO extends DAO {
 
-    long addGoods(Goods goods);
-
-    void cacheGoods(Goods goods);
+    long saveGoods(Goods goods);
 
     GoodsList getGoodsList();
 }

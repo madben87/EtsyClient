@@ -6,6 +6,9 @@ public interface Constants {
     String APP_KEY = "kg64vu4dsbfzm5o6fgl27vf8";
     String MAIN_IMAGE = "MainImage";
 
+    //Flags
+    String SAVED_FLAG = "savedGoods";
+
     //Category
     String CATEGORY_KEY = "Category";
     String CATEGORY_ID = "category_id";

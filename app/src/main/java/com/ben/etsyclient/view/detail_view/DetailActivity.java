@@ -2,6 +2,7 @@ package com.ben.etsyclient.view.detail_view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailActivity extends AppCompatActivity implements DetailView, Constants {
 
@@ -48,6 +50,12 @@ public class DetailActivity extends AppCompatActivity implements DetailView, Con
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        /*if (getIntent() != null) {
+            if (getIntent().getStringExtra(SAVED_FLAG) != null && getIntent().getStringExtra(SAVED_FLAG).equals(SAVED_FLAG)) {
+                detailBtn.setVisibility(View.INVISIBLE);
+            }
+        }*/
+
         ButterKnife.bind(this);
 
         EtsyClient.getInjector().inject(this);
@@ -67,8 +75,15 @@ public class DetailActivity extends AppCompatActivity implements DetailView, Con
         MadLog.log(this, "onCreate");
     }
 
+    @OnClick(R.id.detail_btn)
+    void click(View view) {
+        detailPresenter.saveGoods(goods);
+    }
+
     @Override
     public void showDetail(Goods goods) {
+
+        this.goods = goods;
 
         detailPrice.setText(String.valueOf(goods.getPrice()));
         detailCurrencyCode.setText(goods.getCurrencyCode());

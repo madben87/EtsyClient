@@ -1,6 +1,7 @@
 package com.ben.etsyclient.view.search_view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.R;
@@ -20,9 +22,11 @@ import com.ben.etsyclient.custom_view.JazzBallTextView;
 import com.ben.etsyclient.data.RetrofitService;
 import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.category.Category;
+import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.JazzBallFont;
 import com.ben.etsyclient.util.MadLog;
+import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,8 +96,18 @@ public class SearchFragment extends Fragment implements Constants, SearchView {
 
     @OnClick(R.id.submit_btn)
     void click(View view) {
-        searchPresenter.searchItems(categoryList.get(spinnerCategories.getSelectedItemPosition()), textView.getText().toString());
-        MadLog.log(this, "click");
+        if (spinnerCategories != null && spinnerCategories.getSelectedItem() != null && textView.getText() != null && !textView.getText().toString().equals("")) {
+            searchPresenter.searchItems(categoryList.get(spinnerCategories.getSelectedItemPosition()), textView.getText().toString());
+            MadLog.log(this, "click");
+        }else {
+            Toast.makeText(getContext(), "Please, enter search query, or choose category", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void showResult(GoodsList goodsList) {
+        Intent intent = new Intent(getContext(), ResultSearchActivity.class);
+        intent.putExtra(GOODS_LIST_KEY, goodsList);
+        startActivity(intent);
     }
 
     @Override
