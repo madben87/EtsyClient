@@ -74,6 +74,7 @@ public class ResultSearchAdapter extends RecyclerView.Adapter<ResultSearchHolder
                     case R.id.card_view_res_item:
                         Intent intent = new Intent(view.getContext(), DetailActivity.class);
                         intent.putExtra(GOODS_KEY, goodsList.getResults().get(position));
+                        intent.putExtra(FLAG, SEARCH_FLAG);
                         view.getContext().startActivity(intent);
                         break;
                 }

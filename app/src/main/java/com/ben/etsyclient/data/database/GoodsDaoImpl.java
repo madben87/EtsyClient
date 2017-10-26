@@ -6,14 +6,18 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.data.DBHelper;
+import com.ben.etsyclient.model.MessageEvent;
 import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.model.goods.MainImage;
-import com.ben.etsyclient.util.MadLog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+
+import static com.ben.etsyclient.util.EventConstants.EVENT_REFRESH;
 
 public class GoodsDaoImpl implements GoodsDAO {
 
@@ -65,6 +69,22 @@ public class GoodsDaoImpl implements GoodsDAO {
         long insertImg =  sqLiteDatabase.insert(TABLE_MAIN_IMAGE, null, contentImage);
 
         if (insertGoods >= 0 && insertImg >= 0) {
+            EventBus.getDefault().post(new MessageEvent(EVENT_REFRESH));
+            return 1;
+        }else {
+            return -1;
+        }
+    }
+
+    @Override
+    public long deleteGoods(long id) {
+        open();
+
+        long insertGoods = sqLiteDatabase.delete(TABLE_GOODS, LISTING_ID + " = ?", new String[] {String.valueOf(id)});
+        long insertImg =  sqLiteDatabase.delete(TABLE_MAIN_IMAGE, LISTING_ID + " = ?", new String[] {String.valueOf(id)});
+
+        if (insertGoods >= 0 && insertImg >= 0) {
+            EventBus.getDefault().post(new MessageEvent(EVENT_REFRESH));
             return 1;
         }else {
             return -1;

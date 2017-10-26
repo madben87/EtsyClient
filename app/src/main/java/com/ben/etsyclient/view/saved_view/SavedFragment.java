@@ -1,21 +1,22 @@
 package com.ben.etsyclient.view.saved_view;
 
+import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ben.etsyclient.EtsyClient;
 import com.ben.etsyclient.R;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.adapter.ResultSavedAdapter;
-import com.ben.etsyclient.view.adapter.ResultSearchAdapter;
-import com.ben.etsyclient.view.search_result_view.ResultSearchPresenterImpl;
 
 import javax.inject.Inject;
 
@@ -33,8 +34,8 @@ public class SavedFragment extends Fragment implements SavedView {
     @Inject
     SavedPresenterImpl savedPresenter;
 
-    private GoodsList goodsList;
     private Unbinder unbinder;
+    private FragmentActivity fragmentActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,22 @@ public class SavedFragment extends Fragment implements SavedView {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(resultSearchAdapter);
+    }
+
+    @Override
+    public void showDialog(DialogFragment dialog) {
+        dialog.show(fragmentActivity.getFragmentManager(), "DeleteItemDialog");
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        fragmentActivity = (FragmentActivity) context;
+        super.onAttach(context);
     }
 
     @Override

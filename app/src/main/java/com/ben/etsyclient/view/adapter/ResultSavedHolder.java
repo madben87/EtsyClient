@@ -3,6 +3,7 @@ package com.ben.etsyclient.view.adapter;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.ben.etsyclient.R;
@@ -11,7 +12,7 @@ import com.ben.etsyclient.custom_view.JazzBallTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ResultSavedHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ResultSavedHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     @BindView(R.id.card_view_res_item)
     CardView cardViewResItem;
@@ -23,8 +24,11 @@ public class ResultSavedHolder extends RecyclerView.ViewHolder implements View.O
     JazzBallTextView currencyCodeResItem;
     @BindView(R.id.main_image_res_item)
     ImageView mainImageResItem;
+    @BindView(R.id.delete_item)
+    FrameLayout deleteItem;
 
     private ItemClick listener;
+    private LongItemClick longItemClick;
 
 
     public ResultSavedHolder(View itemView) {
@@ -34,6 +38,7 @@ public class ResultSavedHolder extends RecyclerView.ViewHolder implements View.O
 
         cardViewResItem.setPreventCornerOverlap(false);
         cardViewResItem.setOnClickListener(this);
+        cardViewResItem.setOnLongClickListener(this);
     }
 
     @Override
@@ -42,7 +47,15 @@ public class ResultSavedHolder extends RecyclerView.ViewHolder implements View.O
         listener.onItemClick(v, this.getLayoutPosition());
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+        longItemClick.onLongItemClick(view, this.getLayoutPosition());
+        return true;
+    }
+
     public void setOnItemClickListener(ItemClick listener) {
         this.listener = listener;
     }
+
+    public void setOnLongItemClickListener(LongItemClick longItemClick) {this.longItemClick = longItemClick;}
 }

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
-import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.model.goods.Pagination;
 import com.ben.etsyclient.model.goods.Params;
@@ -32,11 +31,6 @@ public class ResultSearchPresenterImpl implements ResultSearchPresenter, Constan
 
     @Inject
     public ResultSearchPresenterImpl(DataManager dataManager) {this.dataManager = dataManager;}
-
-    @Override
-    public void showDetail(Goods goods) {
-        MadLog.log(this, "showDetail");
-    }
 
     @Override
     public void refreshList(String category, String keywords) {

@@ -8,6 +8,7 @@ import com.ben.etsyclient.modules.ContextModule;
 import com.ben.etsyclient.modules.RetrofitModule;
 import com.ben.etsyclient.util.JazzBallFont;
 import com.ben.etsyclient.view.detail_view.DetailActivity;
+import com.ben.etsyclient.view.saved_view.DeleteItemDialog;
 import com.ben.etsyclient.view.saved_view.SavedFragment;
 import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 import com.ben.etsyclient.view.search_result_view.ResultSearchPresenterImpl;
@@ -31,4 +32,5 @@ public interface Injector {
     void inject(DetailActivity detailActivity);
     void inject(GoodsDaoImpl goodsDao);
     void inject(SavedFragment savedFragment);
+    void inject(DeleteItemDialog deleteItemDialog);
 }

@@ -1,21 +1,20 @@
 package com.ben.etsyclient.view.detail_view;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.ben.etsyclient.EtsyClient;
+import com.ben.etsyclient.MainActivity;
 import com.ben.etsyclient.R;
 import com.ben.etsyclient.custom_view.JazzBallTextView;
 import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
-import com.ben.etsyclient.view.search_view.SearchPresenterImpl;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import javax.inject.Inject;
 
@@ -35,12 +34,16 @@ public class DetailActivity extends AppCompatActivity implements DetailView, Con
     JazzBallTextView detailDescription;
     @BindView(R.id.detail_img)
     ImageView detailImg;
-    @BindView(R.id.detail_btn)
-    FrameLayout detailBtn;
+    @BindView(R.id.saveBtn)
+    JazzBallTextView saveBtn;
+    @BindView(R.id.deleteBtn)
+    JazzBallTextView deleteBtn;
 
     private Goods goods;
 
     private ImageLoader imageLoader;
+
+    private String LOCAL_FLAG;
 
     @Inject
     DetailPresenterImpl detailPresenter;
@@ -49,12 +52,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView, Con
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        /*if (getIntent() != null) {
-            if (getIntent().getStringExtra(SAVED_FLAG) != null && getIntent().getStringExtra(SAVED_FLAG).equals(SAVED_FLAG)) {
-                detailBtn.setVisibility(View.INVISIBLE);
-            }
-        }*/
 
         ButterKnife.bind(this);
 
@@ -72,12 +69,31 @@ public class DetailActivity extends AppCompatActivity implements DetailView, Con
         detailPresenter.attachView(this);
         detailPresenter.startView((Goods) getIntent().getParcelableExtra(GOODS_KEY));
 
+        if (getIntent() != null) {
+            if (getIntent().getStringExtra(FLAG) != null && getIntent().getStringExtra(FLAG).equals(SAVED_FLAG)) {
+                saveBtn.setVisibility(View.GONE);
+                deleteBtn.setVisibility(View.VISIBLE);
+                LOCAL_FLAG = getIntent().getStringExtra(FLAG);
+            }else if (getIntent().getStringExtra(FLAG) != null && getIntent().getStringExtra(FLAG).equals(SEARCH_FLAG)) {
+                saveBtn.setVisibility(View.VISIBLE);
+                deleteBtn.setVisibility(View.GONE);
+                LOCAL_FLAG = getIntent().getStringExtra(FLAG);
+            }
+        }
+
         MadLog.log(this, "onCreate");
     }
 
-    @OnClick(R.id.detail_btn)
+    @OnClick({R.id.saveBtn, R.id.deleteBtn})
     void click(View view) {
-        detailPresenter.saveGoods(goods);
+        if (LOCAL_FLAG.equals(SEARCH_FLAG)) {
+            detailPresenter.saveGoods(goods);
+        }else if (LOCAL_FLAG.equals(SAVED_FLAG)) {
+            detailPresenter.deleteItem(goods.getListingId());
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
     @Override

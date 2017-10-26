@@ -1,15 +1,11 @@
 package com.ben.etsyclient.view.search_view;
 
-import android.content.Context;
-import android.content.Intent;
-
 import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
 import com.ben.etsyclient.model.category.Categories;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
-import com.ben.etsyclient.view.search_result_view.ResultSearchActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,12 +20,10 @@ public class SearchPresenterImpl implements SearchPresenter, Constants {
     private SearchView view;
     private Repository dataManager;
     private CompositeSubscription compositeSubscription;
-    private Context context;
 
     @Inject
-    public SearchPresenterImpl(DataManager dataManager, Context context) {
+    public SearchPresenterImpl(DataManager dataManager) {
         this.dataManager = dataManager;
-        this.context = context;
     }
 
     @Override
@@ -91,9 +85,6 @@ public class SearchPresenterImpl implements SearchPresenter, Constants {
 
                     @Override
                     public void onNext(GoodsList goodsList) {
-                        /*Intent intent = new Intent(context, ResultSearchActivity.class);
-                        intent.putExtra(GOODS_LIST_KEY, goodsList);
-                        context.startActivity(intent);*/
                         view.showResult(goodsList);
                     }
                 });

@@ -95,7 +95,8 @@ public class DataManager implements Repository, Constants {
     }
 
     @Override
-    public void deleteItem(Goods goods) {
+    public long deleteItem(long id) {
         MadLog.log(this, "deleteItem");
+        return goodsDao.deleteGoods(id);
     }
 }

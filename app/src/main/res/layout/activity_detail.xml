@@ -145,6 +145,12 @@
                             android:textColor="@android:color/black"
                             android:textSize="16sp" />
 
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </FrameLayout>
+
                     </LinearLayout>
                 </ScrollView>
             </FrameLayout>
@@ -154,7 +160,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@drawable/card_detail_header"
+                android:background="@drawable/card_detail_footer"
                 android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -162,9 +168,22 @@
                 app:layout_constraintRight_toRightOf="parent">
 
                 <com.ben.etsyclient.custom_view.JazzBallTextView
-                    android:id="@+id/jazzBallTextView6"
+                    android:id="@+id/deleteBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:gravity="center"
+                    android:text="delete"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.ben.etsyclient.custom_view.JazzBallTextView
+                    android:id="@+id/saveBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:gravity="center"

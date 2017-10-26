@@ -34,8 +34,6 @@ public class Categories implements Parcelable {
         this.results = results;
     }
 
-    //Parcelable
-
     public static final Creator<Categories> CREATOR = new Creator<Categories>() {
         @Override
         public Categories createFromParcel(Parcel in) {

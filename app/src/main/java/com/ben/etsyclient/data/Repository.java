@@ -21,5 +21,5 @@ public interface Repository {
     //Сохраняет товар в БД
     long saveItem(Goods goods);
     //Удаляет товар из БД
-    void deleteItem(Goods goods);
+    long deleteItem(long id);
 }

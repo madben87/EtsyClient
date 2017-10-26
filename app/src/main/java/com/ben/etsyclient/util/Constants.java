@@ -7,6 +7,8 @@ public interface Constants {
     String MAIN_IMAGE = "MainImage";
 
     //Flags
+    String FLAG = "modeFlag";
+    String SEARCH_FLAG = "searchGoods";
     String SAVED_FLAG = "savedGoods";
 
     //Category

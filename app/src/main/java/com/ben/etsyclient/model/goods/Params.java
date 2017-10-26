@@ -58,7 +58,4 @@ public class Params implements Constants, Parcelable {
         dest.writeString(keywords);
         dest.writeString(category);
     }
-
-    //https://openapi.etsy.com/v2/listings/active?api_key=kg64vu4dsbfzm5o6fgl27vf8&category=paper_goods&keywords=terminator&includes=MainImage&limit=25&offset=0
-    //&limit=25&offset=0
 }

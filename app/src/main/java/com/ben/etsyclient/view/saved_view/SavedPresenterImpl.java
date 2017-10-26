@@ -1,17 +1,29 @@
 package com.ben.etsyclient.view.saved_view;
 
+import android.app.DialogFragment;
+import android.os.Bundle;
+
 import com.ben.etsyclient.data.DataManager;
 import com.ben.etsyclient.data.Repository;
+import com.ben.etsyclient.model.MessageEvent;
 import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.util.Constants;
+import com.ben.etsyclient.util.EventConstants;
 import com.ben.etsyclient.util.MadLog;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import rx.Observer;
 import rx.subscriptions.CompositeSubscription;
 
-public class SavedPresenterImpl implements SavedPresenter {
+@Singleton
+public class SavedPresenterImpl implements SavedPresenter, EventConstants, Constants {
 
     private Repository dataManager;
     private CompositeSubscription compositeSubscription;
@@ -44,19 +56,37 @@ public class SavedPresenterImpl implements SavedPresenter {
     }
 
     @Override
-    public void deleteItem(Goods goods) {
+    public void deleteItem(long id) {
 
+        long result = dataManager.deleteItem(id);
+
+        if (result >= 0) {
+            getItems();
+            MadLog.log(this, "deleteItem");
+        }else {
+            view.showMessage("Error delete");
+        }
     }
 
     @Override
-    public void showItemDetail(int position) {
+    public void showDialog(Goods goods) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(GOODS_KEY, goods);
 
+        DialogFragment dialog = new DeleteItemDialog();
+
+        dialog.setArguments(bundle);
+
+        this.view.showDialog(dialog);
     }
 
     @Override
     public void attachView(SavedView mvpView) {
         this.view = mvpView;
         compositeSubscription = new CompositeSubscription();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         MadLog.log(this, "attachView");
     }
 
@@ -64,6 +94,7 @@ public class SavedPresenterImpl implements SavedPresenter {
     public void detachView() {
         view = null;
         unSubscribe();
+        EventBus.getDefault().unregister(this);
         MadLog.log(this, "detachView");
     }
 
@@ -73,6 +104,17 @@ public class SavedPresenterImpl implements SavedPresenter {
                 compositeSubscription.unsubscribe();
                 compositeSubscription = null;
             }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MessageEvent event){
+
+        switch (event.message) {
+            case EVENT_REFRESH:
+
+                getItems();
+                break;
         }
     }
 }

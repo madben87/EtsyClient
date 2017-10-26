@@ -6,17 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ben.etsyclient.R;
-import com.ben.etsyclient.model.goods.Goods;
 import com.ben.etsyclient.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
 import com.ben.etsyclient.view.detail_view.DetailActivity;
+import com.ben.etsyclient.view.saved_view.SavedPresenterImpl;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,6 +25,8 @@ public class ResultSavedAdapter extends RecyclerView.Adapter<ResultSavedHolder> 
 
     @Inject
     public Context context;
+    @Inject
+    public SavedPresenterImpl savedPresenter;
 
     @Inject
     public ResultSavedAdapter() {
@@ -65,8 +64,20 @@ public class ResultSavedAdapter extends RecyclerView.Adapter<ResultSavedHolder> 
                     case R.id.card_view_res_item:
                         Intent intent = new Intent(context, DetailActivity.class);
                         intent.putExtra(GOODS_KEY, goodsList.getResults().get(position));
-                        intent.putExtra(SAVED_FLAG, SAVED_FLAG);
+                        intent.putExtra(FLAG, SAVED_FLAG);
                         context.startActivity(intent);
+                        break;
+                }
+            }
+        });
+
+        holder.setOnLongItemClickListener(new LongItemClick() {
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+                switch (view.getId()) {
+                    case R.id.card_view_res_item:
+                        savedPresenter.showDialog(goodsList.getResults().get(position));
                         break;
                 }
             }

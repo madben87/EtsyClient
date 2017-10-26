@@ -7,5 +7,7 @@ public interface GoodsDAO extends DAO {
 
     long saveGoods(Goods goods);
 
+    long deleteGoods(long id);
+
     GoodsList getGoodsList();
 }
