@@ -6,8 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.ben.etsyclient.R;
-import com.ben.etsyclient.custom_view.JazzBallTextView;
-import com.ben.etsyclient.view.adapter.ItemClick;
+import com.ben.etsyclient.view.custom.JazzBallTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

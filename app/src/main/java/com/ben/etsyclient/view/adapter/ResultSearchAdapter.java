@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ben.etsyclient.R;
-import com.ben.etsyclient.model.goods.Goods;
-import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.data.model.goods.Goods;
+import com.ben.etsyclient.data.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
-import com.ben.etsyclient.view.detail_view.DetailActivity;
+import com.ben.etsyclient.view.detail.DetailActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;

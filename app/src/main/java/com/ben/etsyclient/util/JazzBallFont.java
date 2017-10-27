@@ -3,7 +3,7 @@ package com.ben.etsyclient.util;
 import android.content.Context;
 import android.graphics.Typeface;
 
-import com.ben.etsyclient.EtsyClient;
+import com.ben.etsyclient.EtsyClientApplication;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -27,7 +27,7 @@ public class JazzBallFont {
     @Inject
     public JazzBallFont() {
 
-        EtsyClient.getInjector().inject(this);
+        EtsyClientApplication.getInjector().inject(this);
 
         setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/jazz_ball.ttf"));
     }

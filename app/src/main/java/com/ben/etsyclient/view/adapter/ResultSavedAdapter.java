@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ben.etsyclient.R;
-import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.data.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
-import com.ben.etsyclient.view.detail_view.DetailActivity;
-import com.ben.etsyclient.view.saved_view.SavedPresenterImpl;
+import com.ben.etsyclient.view.detail.DetailActivity;
+import com.ben.etsyclient.view.saved.SavedPresenterImpl;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import javax.inject.Inject;

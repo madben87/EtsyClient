@@ -2,14 +2,12 @@ package com.ben.etsyclient.data.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.ben.etsyclient.EtsyClient;
+import com.ben.etsyclient.EtsyClientApplication;
 import com.ben.etsyclient.data.DBHelper;
-import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.category.Category;
-import com.ben.etsyclient.util.DBConstants;
+import com.ben.etsyclient.data.model.category.Categories;
+import com.ben.etsyclient.data.model.category.Category;
 import com.ben.etsyclient.util.MadLog;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ public class CategoryDaoImpl implements CategoryDAO {
 
     @Inject
     public CategoryDaoImpl() {
-        EtsyClient.getInjector().inject(this);
+        EtsyClientApplication.getInjector().inject(this);
     }
 
     @Override

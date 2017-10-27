@@ -4,12 +4,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.ben.etsyclient.EtsyClient;
+import com.ben.etsyclient.EtsyClientApplication;
 import com.ben.etsyclient.data.DBHelper;
-import com.ben.etsyclient.model.MessageEvent;
-import com.ben.etsyclient.model.goods.Goods;
-import com.ben.etsyclient.model.goods.GoodsList;
-import com.ben.etsyclient.model.goods.MainImage;
+import com.ben.etsyclient.data.model.MessageEvent;
+import com.ben.etsyclient.data.model.goods.Goods;
+import com.ben.etsyclient.data.model.goods.GoodsList;
+import com.ben.etsyclient.data.model.goods.MainImage;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +28,7 @@ public class GoodsDaoImpl implements GoodsDAO {
 
     @Inject
     public GoodsDaoImpl() {
-        EtsyClient.getInjector().inject(this);
+        EtsyClientApplication.getInjector().inject(this);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.ben.etsyclient.data;
 
 
-import com.ben.etsyclient.EtsyClient;
+import com.ben.etsyclient.EtsyClientApplication;
 import com.ben.etsyclient.data.database.CategoryDaoImpl;
 import com.ben.etsyclient.data.database.GoodsDaoImpl;
-import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.goods.Goods;
-import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.data.model.category.Categories;
+import com.ben.etsyclient.data.model.goods.Goods;
+import com.ben.etsyclient.data.model.goods.GoodsList;
 import com.ben.etsyclient.util.Constants;
 import com.ben.etsyclient.util.MadLog;
 
@@ -30,7 +30,7 @@ public class DataManager implements Repository, Constants {
     @Inject
     public DataManager(RetrofitService retrofitService) {
         this.retrofitService = retrofitService;
-        EtsyClient.getInjector().inject(this);
+        EtsyClientApplication.getInjector().inject(this);
     }
 
     @Override

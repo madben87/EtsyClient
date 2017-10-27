@@ -1,7 +1,7 @@
 package com.ben.etsyclient.data;
 
-import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.data.model.category.Categories;
+import com.ben.etsyclient.data.model.goods.GoodsList;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

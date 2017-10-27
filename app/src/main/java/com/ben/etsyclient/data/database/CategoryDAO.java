@@ -1,7 +1,7 @@
 package com.ben.etsyclient.data.database;
 
-import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.category.Category;
+import com.ben.etsyclient.data.model.category.Categories;
+import com.ben.etsyclient.data.model.category.Category;
 
 public interface CategoryDAO extends DAO {
 

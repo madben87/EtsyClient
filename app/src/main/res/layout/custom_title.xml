@@ -5,9 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.ben.etsyclient.custom_view.JazzBallTextView
+    <com.ben.etsyclient.view.custom.JazzBallTextView
         android:id="@+id/my_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Etsy.com"
         android:textAlignment="center"

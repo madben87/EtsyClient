@@ -1,8 +1,8 @@
 package com.ben.etsyclient.data;
 
-import com.ben.etsyclient.model.category.Categories;
-import com.ben.etsyclient.model.goods.Goods;
-import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.data.model.category.Categories;
+import com.ben.etsyclient.data.model.goods.Goods;
+import com.ben.etsyclient.data.model.goods.GoodsList;
 
 import rx.Observable;
 

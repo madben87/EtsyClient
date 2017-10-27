@@ -1,7 +1,7 @@
 package com.ben.etsyclient.data.database;
 
-import com.ben.etsyclient.model.goods.Goods;
-import com.ben.etsyclient.model.goods.GoodsList;
+import com.ben.etsyclient.data.model.goods.Goods;
+import com.ben.etsyclient.data.model.goods.GoodsList;
 
 public interface GoodsDAO extends DAO {
 
